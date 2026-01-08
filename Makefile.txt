@@ -1,0 +1,13 @@
+all: run
+
+compile:
+	javac ForthCompiler.java
+
+generate: compile
+	java ForthCompiler code.fs
+
+assemble: generate
+	as -o code.o code.s
+	ld -o code code.o -lc -dynamic-linker /lib64/ld-linux-x86-64.so.2
+run: assemble
+	./code
